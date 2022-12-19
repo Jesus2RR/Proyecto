@@ -1,0 +1,279 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+    background-color: #1e1e1e;
+    color:#FDFFFC;
+}
+
+body{
+    height: 100%;
+}
+
+h1{
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+.divForm{
+    margin:auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2{
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+.center{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fondo{
+    position: relative;
+    margin:auto;
+    font-size: 1.3em;
+    padding: 20px;
+    width: calc(350px + 10vw);
+    height: fit-content;
+    background-color: #2f2f2e;
+}
+
+input{
+    margin-bottom: 20px;
+}
+
+textarea{
+    height: 50px;
+    margin-bottom:20px;
+}
+
+label{
+    margin-bottom: 5px;
+}
+
+.formData{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formBloq{
+    position: absolute;
+    left:52%;
+    bottom: 5%;
+}
+
+.formData p{
+    font-style: italic;
+}
+
+.tCorreo{
+    height: 30px;
+}
+
+.submitModificar{
+    width: fit-content;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.sCorreo{
+    font-size: 1.3em;
+    color: whitesmoke;
+    width: calc(150px + 4vw);
+    height: 50px;
+    background-color: #C1292E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sCorreo:hover{
+    background-color: #891D20;
+}
+
+.sCorreo:active{
+    background-color:#6E171A;
+}
+
+#divAviso{
+    display: flex;
+    position: absolute;
+    padding:10px;
+    height:100%;
+    width: 100%;
+    align-items:center;
+    backdrop-filter: blur(2px);
+    color:black;
+    top:calc(50%-100%);
+    left:calc(50%-100%);
+    z-index:15;
+}
+
+#divAviso p{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    align-items:center;
+    justify-content: center;
+    width:350px;
+    border-radius: 7px;
+    padding:10px;
+    background-color: #FDFFFC;
+    top:calc(50% - 75px);
+    left:calc(50% - 175px);
+}
+
+#divAviso p hr{
+    margin-top: 10px;
+    width: 300px;
+    border:1.5px solid gray;
+}
+
+#divAviso p button{
+    border:none;
+    margin-top:10px;
+    width:85px;
+    height:40px;
+    background-color:#235789;    
+    border-radius: 5px;
+}
+
+#divAviso p button:hover{
+    background-color: #1D4870;    
+}
+
+#divAviso p button:active{
+    background-color:#1f3a5a;    
+}
+
+/* Estilo menu Hamburguesa */
+
+li{
+    list-style:none;
+}
+
+.respmenu a{
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color:#FDFFFC;
+}
+
+.respmenu a:hover{
+    font-weight: bold;
+}
+
+.cerrarSesion{
+    color:black;
+    background-color:#C1292E;
+}
+
+.cerrarSesion:hover{
+    background-color: #891D20;
+}
+
+.cerrarSesion:active{
+    background-color:#6E171A;
+}
+
+.check{
+    position: absolute;
+    left:17px;
+    top: 25px;
+    width: 50px;
+    height: 48px;
+    z-index:5;
+    opacity:0;
+    cursor: pointer;
+}
+
+.respmenu{
+    position:absolute;
+    top:0;
+    width:180px;
+    left:-40vw;
+    height: 100vh;
+    background-color: #41403F;
+    transition:all;
+    transition-duration:0.5s;
+    z-index: 3;
+}
+
+nav{
+    top:100px;
+    position:absolute;
+    display: block;
+    width: 100%;
+}
+
+.check:checked  ~.respmenu{
+    transform: translate(40vw);   
+}
+
+.menuH{
+    position: absolute;
+    top:15px;
+    left:15px;
+    z-index:4;
+    float:left;
+}
+
+.hamburguesa{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom:10px;
+    width:45px;
+    height:5px;
+    border:1px solid #FDFFFC;
+    background-color: #FDFFFC;
+    border-radius: 15px;
+}
+
+/* HTML animacion menu hamburguesa */
+
+.bar1, .bar2, .bar3{
+    transition: all;
+    transition: 0.5s;
+}
+
+.check:checked  ~.superior .menuH .bar1{
+   transform-origin: left;
+   transform:rotateZ(46deg) translate(-0.5px) translateY(-0.5px);
+}
+
+.check:checked  ~.superior .menuH .bar2{
+    transform-origin: left;
+    transform:scale(0);
+} 
+
+.check:checked  ~.superior .menuH .bar3{
+    transform-origin: left;
+    transform:rotateZ(-46deg) translate(-1.5px) translateY(-0.5px);
+} 
+
+/* media queries para version de escritorio */
+
+@media (min-width:1300px){
+    
+    .respmenu{
+        width:240px;
+    }
+
+    ul{
+        margin-top: 30px;
+    }
+
+}

@@ -1,0 +1,243 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+    font-family: 'Raleway', sans-serif;
+    background-color: #1e1e1e;
+    color:#FDFFFC;
+}
+
+body{
+    height: 100%;
+    padding:15px;
+}
+
+.divImg{
+    height: 100%;
+    margin:auto;
+    width: 150px;
+}
+img{
+    width: 150px;
+}
+
+
+/* Estilo menu Hamburguesa */
+
+li{
+    list-style:none;
+}
+
+.respmenu a{
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color:#FDFFFC;
+}
+
+.respmenu a:hover{
+    font-weight: bold;
+}
+
+.cerrarSesion{
+    color:black;
+    background-color:#C1292E;
+}
+
+.cerrarSesion:hover{
+    background-color: #891D20;
+}
+
+.cerrarSesion:active{
+    background-color:#6E171A;
+}
+
+.check{
+    position: absolute;
+    left:17px;
+    top: 25px;
+    width: 50px;
+    height: 48px;
+    z-index: 3;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.respmenu{
+    position:absolute;
+    top:0;
+    width:175px;
+    left:-40vw;
+    height: 100vh;
+    background-color: #41403F;
+    transition:all;
+    transition-duration:0.5s;
+}
+
+nav{
+    top:65px;
+    position:absolute;
+    display: block;
+    width: 100%;
+}
+
+.check:checked  ~.respmenu{
+    transform: translate(40vw);   
+}
+
+.menuH{
+    position: absolute;
+    left:15px;
+    z-index:2;
+    float:left;
+}
+
+.hamburguesa{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom:10px;
+    width:45px;
+    height:5px;
+    border:1px solid #FDFFFC;
+    background-color: #FDFFFC;
+    border-radius: 15px;
+}
+
+
+
+form,.citas{
+    display: flex;
+    margin:auto;
+    margin-top: 25px;
+    width: 50vw;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+}
+
+.citas{
+    display: flex;
+    width:calc(300px + 20vw);
+    flex-direction: row;
+    justify-content: space-between;
+    border:solid 1px whitesmoke;
+    padding:20px;
+}
+
+.center{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nocita{
+    margin:0;
+    display: flex;
+    flex-direction: column;
+}
+
+.nocita p{
+    font-size:25px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.citasFecha{
+    display: flex;
+    flex-direction: column;
+}
+
+.citasFecha p{
+    width: fit-content;
+    font-size:calc(15px + 0.5vw);    
+}
+
+label{
+    margin-top: 10px;
+    width:calc(300px + 0.5vw);
+}
+
+.submitPerfil{
+    margin:auto;
+    margin-top: 15px;
+}
+
+.formCancelar{
+    margin:0;
+    width: fit-content;
+}
+
+.cancelarCita{
+    display: flex;
+}
+
+.cancelarCita input[type="submit"]{
+    padding:10px;
+    height:50px;
+    font-size:calc(20px + 0.5vw);
+    border:none;
+    border-radius:10px;
+    background-color: #C1292E;
+    width:calc(80px + 5vw);
+    font-size:calc(15px + 0.5vw);
+}
+
+.cancelarCita input[type="submit"]:hover{
+    background-color: #891D20;
+}
+
+.cancelarCita input[type="submit"]:active{
+    background-color: #6E171A;
+}
+
+/* HTML animacion menu hamburguesa */
+
+.bar1, .bar2, .bar3{
+    transition: all;
+    transition: 0.5s;
+}
+
+.check:checked  ~.superior .menuH .bar1{
+   transform-origin: left;
+   transform:rotateZ(46deg) translate(-0.5px) translateY(-0.5px);
+}
+
+.check:checked  ~.superior .menuH .bar2{
+    transform-origin: left;
+    transform:scale(0);
+} 
+
+.check:checked  ~.superior .menuH .bar3{
+    transform-origin: left;
+    transform:rotateZ(-46deg) translate(-1.5px) translateY(-0.5px);
+} 
+
+/* media queries para version de escritorio */
+
+@media (min-width:1300px){
+
+    /* .menuH{
+        margin-top:25px;
+    } */
+    
+    h1{
+        font-size: 2.5em;
+    }
+
+    .respmenu{
+        width:240px;
+    }
+
+    ul{
+        margin-top: 30px;
+    }
+
+}
+
+
+

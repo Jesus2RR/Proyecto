@@ -1,0 +1,74 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "c35a32e4cf92f4ed66f04d7e6d328852",
+    "packages": [
+        {
+            "name": "esendex/sdk",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/esendex/esendex-php-sdk.git",
+                "reference": "85fc945a225b3441223a7a6333f5599bfd8fbc75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/esendex/esendex-php-sdk/zipball/85fc945a225b3441223a7a6333f5599bfd8fbc75",
+                "reference": "85fc945a225b3441223a7a6333f5599bfd8fbc75",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "pear/archive_tar": "1.4.*",
+                "phing/phing": "2.*",
+                "phpunit/phpunit": "8.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Esendex": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Esendex Support",
+                    "email": "support@esendex.com"
+                }
+            ],
+            "description": "Send SMS from your application using the Esendex API",
+            "homepage": "http://developers.esendex.com",
+            "keywords": [
+                "api",
+                "requests",
+                "rest",
+                "restful",
+                "sms"
+            ],
+            "support": {
+                "email": "support@esendex.com",
+                "issues": "https://github.com/esendex/esendex-php-sdk/issues",
+                "source": "https://github.com/esendex/esendex-php-sdk"
+            },
+            "time": "2021-02-17T10:11:44+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
+}
