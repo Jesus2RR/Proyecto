@@ -21,6 +21,7 @@
         // se hace require de los archivos necesarios
         
         require_once("conexion.inc.php");
+        require_once("Cliente.php");
         require_once("../../api/vendor/autoload.php");
 
         // se inicia la conexion
@@ -52,20 +53,7 @@
             //si se pulsa el submit y no existe la cita en el array se hace la insercion
             if(isset($_POST['horaSubmit']) && !in_array($fechaYhora, $arrayExiste)){
 
-                // envio de SMS
-                $message = new \Esendex\Model\DispatchMessage(
-                    "Ali", // Send from
-                    $tlf, // Send to any valid number
-                    "Su cita de las $fechaYhora ha sido reservada.",
-                    \Esendex\Model\Message::SmsType
-                );
-                $authentication = new \Esendex\Authentication\LoginAuthentication(
-                    "EX0349744", // Your Esendex Account Reference
-                    "9435@cifpceuta.es", // Your login email address
-                    "54d98e2d1a574e72bebe" // Your password
-                );
-                $service = new \Esendex\DispatchService($authentication);
-                $result = $service->send($message);
+                // Cliente::apiCall($tlf);
                 
                 $insert = $conexion->exec("INSERT INTO Cita (fecha_hora, correo) VALUES ('$fechaYhora','$_POST[correoCliente]')");
             }
@@ -116,20 +104,7 @@
                 </div>
                 <?php
 
-                // envio del SMS
-                $message = new \Esendex\Model\DispatchMessage(
-                    "Ali", // Send from
-                    $tlf, // Send to any valid number
-                    "Se le ha asignado una cita a las $_GET[horaHidden].",
-                    \Esendex\Model\Message::SmsType
-                );
-                $authentication = new \Esendex\Authentication\LoginAuthentication(
-                    "EX0349744", // Your Esendex Account Reference
-                    "9435@cifpceuta.es", // Your login email address
-                    "54d98e2d1a574e72bebe" // Your password
-                );
-                $service = new \Esendex\DispatchService($authentication);
-                $result = $service->send($message);
+                Cliente::apiCall($tlf);
 
                 $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo) VALUES ('$_GET[horaHidden]','$_GET[txtCorreo]')");
 
@@ -148,20 +123,7 @@
                             
                             <?php
 
-                            // envio de SMS
-                            $message = new \Esendex\Model\DispatchMessage(
-                                "Ali", // Send from
-                                $tlf, // Send to any valid number
-                                "Se le ha asignado una cita a las $_GET[horaHidden].",
-                                \Esendex\Model\Message::SmsType
-                            );
-                            $authentication = new \Esendex\Authentication\LoginAuthentication(
-                                "EX0349744", // Your Esendex Account Reference
-                                "9435@cifpceuta.es", // Your login email address
-                                "54d98e2d1a574e72bebe" // Your password
-                            );
-                            $service = new \Esendex\DispatchService($authentication);
-                            $result = $service->send($message);
+                            // Cliente::apiCall($tlf);
 
                                 $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo,anotacion) VALUES ('$_GET[horaHidden]','$_GET[txtCorreo]','$_GET[comentario]')");
                             

@@ -22,6 +22,7 @@
         // require de los ficheros necesarios
         // se inicia la conexion
         require_once("conexion.inc.php");
+        require_once("Cliente.php");
         $conexion = Conexion::openConexion();
 
         session_start();

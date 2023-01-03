@@ -351,6 +351,23 @@ class Cliente extends Conexion{
             
         }
     }
+
+    public static function apiCall($tlf){
+        //envio de sms
+        $message = new \Esendex\Model\DispatchMessage(
+            "Ali", // Send from
+            $tlf, // Send to any valid number
+            "Su cita de las $_POST[fechaBorrar] ha sido borrada",
+            \Esendex\Model\Message::SmsType
+        );
+        $authentication = new \Esendex\Authentication\LoginAuthentication(
+            "EX0349744", // Your Esendex Account Reference
+            "9435@cifpceuta.es", // Your login email address
+            "54d98e2d1a574e72bebe" // Your password
+        );
+        $service = new \Esendex\DispatchService($authentication);
+        $result = $service->send($message);
+    }
 }
 
 
