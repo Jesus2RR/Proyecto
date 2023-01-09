@@ -94,6 +94,7 @@ form{
 
 .adminCalendar{
     display:flex;
+    flex-direction: column;
     justify-content:space-around;
     width: 100%;
 }
@@ -108,7 +109,7 @@ form{
     flex-direction: column;
     padding:15px;
     margin-top:25px;
-    width:700px;
+    width:calc(350px + 20vw);
     height:95vh;
     background-color: #302F2F;
     text-align: center;
@@ -124,27 +125,48 @@ table{
 }
 
 .primerTd{
-    width: 200px;
+    width: calc(10px + 0.5vw);
+}
+
+.segundoTd{
+    width: calc(3px + 0.5vw);
 }
 
 td{
     border:1px solid whitesmoke;
     padding:0;
+    height: 5vh;
 }
 
 td form{
     display: block;  
-    height:fit-content;
+    height:100%;
+    margin:0;
+    
 }
 
 td input[type='submit']{
     border: 0;
     width: 100%;
     height: 100%;
+    background-color: transparent;
 }
 
+td input[type='submit']:hover{
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+td input[type='submit']:active{
+    background-color:gray;
+}
+
+.cancelar{
+    padding:5px;
+}
 .cancelar input[type='submit']{
     background-color: #C1292E;
+    color:whitesmoke;
     width: 150px;
     border-radius:5px;
     font-size:20px;
@@ -278,6 +300,10 @@ nav{
         padding:10px;
     }
 
+    .adminCalendar{
+        
+        flex-direction: row;
+    }
 }
 
 

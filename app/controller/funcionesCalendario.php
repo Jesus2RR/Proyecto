@@ -192,7 +192,7 @@
                 if(in_array($fechayHora, $arrayExiste)){
                     
                     echo "<td class='primerTd'>".date("H:i",$hora)."</td>";
-                    echo "<td class='cancelar'>";
+                    echo "<td class='segundoTd cancelar'>";
                         echo "<form action='./borrarCita.php' method='post'>";
                             echo "<input type='hidden' name='fechaBorrar' value='$fechayHora'>";
                             echo "<input type='hidden' name='pag' value='1'>";
@@ -207,7 +207,7 @@
                             
                     echo "</td>";
 
-                    echo "<td>";
+                    echo "<td class='segundoTd'>";
                         echo "<form action='./reservaPorUsuario.php' method='post'>";
                             echo "<input type='hidden' name='horaHidden' value='$fechayHora'>";
                             echo "<input type='submit' value=''>";
