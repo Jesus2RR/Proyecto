@@ -19,7 +19,21 @@
 <body>
     <!-- se obtienen los archivos js necesarios -->
 <script src='../../js/crearDias.js'></script>
-    <?php session_start();?>
+
+    <?php   
+
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
+
+        session_start();
+        require_once("./Horario.php");        
+        require_once("./funcionesCalendario.php");
+        require_once("./conexion.inc.php");
+        
+        $conexion = Conexion::openConexion();
+        
+        
+    ?>
     <input class="check" type="checkbox">
 
     <?php 
@@ -50,6 +64,27 @@
                         <div class="hamburguesa bar3"></div>
                     </div>
                 </div>
+
+                
+                <h1></h1>
+
+                <div class="diasSemana">
+                    <p>L</p>
+                    <p>M</p>
+                    <p>X</p>
+                    <p>J</p>
+                    <p>V</p>
+                    <p>S</p>
+                    <p>D</p>
+                </div>
+
+                <div class="center">
+
+                    <form action="./Horas.php" id="formularioCalendario" method="post">
+                        <div id='end'></div>
+                    </form>
+
+                </div>
     <?php
             }else{
             // menu hamburguesa admin
@@ -76,45 +111,85 @@
                         <div class="hamburguesa bar3"></div>
                     </div>
                 </div>
+
+                <div class="adminCalendar">
+                    <div class="centrarCalendar">
+                        <h1></h1>
+
+                        <div class="diasSemana">
+                            <p>L</p>
+                            <p>M</p>
+                            <p>X</p>
+                            <p>J</p>
+                            <p>V</p>
+                            <p>S</p>
+                            <p>D</p>
+                        </div>
+
+                        <div class="center">
+
+                            <form action="#" id="formularioCalendario" method="post">
+                                <div id='end'></div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="mostrarDia">
+                            <?php 
+                                // se muestra el nombre del usuario y se llaman a las funciones
+                                if (!isset($_POST['submit'])){
+                                    $dia = diaSemana(date('N'));
+                                    $mes = mesSpain(date('n'));
+                                    $year = date('Y');
+                                    $num = devolverDiaNumerico(date('j'));
+                                    $fechaMes = strval('/'.date('n'));
+                                    $_POST['submit'] = strval($num.'/'.$mes.'/'.$year.'-'.date('N'));
+                                }else{
+                                    
+                                    $dia = diaSemana($_POST['submit']);
+                                    $mes = mesSpain($_POST['submit']);
+                                    $num = devolverDiaNumerico($_POST['submit']);
+                                    $fechaMes = strval('/'.$_POST['submit']);
+                                } 
+                                
+                                if(date('j') == '1' || '2' || '3' || '4' || '5' || '6' || '7' || '8' || '9'){
+                                    $mes = mesSpain($fechaMes);
+                                }
+
+                                $ini = Horario::devolverIni($conexion);
+                                $fin = Horario::devolverFin($conexion);
+                                $mins = Horario::devolverMin($conexion);
+                                
+                            ?>
+                        <h1><?php echo $dia;?></h1>
+
+                        <div><p><?php echo $num." de ".$mes; ?></p></div>
+
+                        <table>
+                            <?php 
+                            
+                            generarHorasAdmin($conexion,$_POST['submit'],$mins,$ini,$fin); 
+                            
+                            ?>
+                        </table>
+
+                    </div>
+
+                    
+                    
+                </div>
         <?php
             }
         }
     ?>
-    
-    <h1></h1>
-
-    <div class="diasSemana">
-        <p>L</p>
-        <p>M</p>
-        <p>X</p>
-        <p>J</p>
-        <p>V</p>
-        <p>S</p>
-        <p>D</p>
-    </div>
-
-    <div class="center">
-    
-        <form action="./Horas.php" id="formularioCalendario" method="post">
-            <div id='end'></div>
-        </form>
-    
-    </div>
 
     <?php 
-        // se hacen require de los archivos necesarios
-        require_once("./conexion.inc.php");
-        require_once("./Horario.php");
-        
-        // se inicia la conexión
-        $conexion = Conexion::openConexion();
-
-        //se obtienen los dias para mostrar el calendario
+       
+       //se obtienen los dias para mostrar el calendario
         $dias = Horario::devolverDia($conexion);
         echo "<script>crearDias('$dias');</script>";
         
-        $_POST['submit'];
-
     ?>
 
 </body>

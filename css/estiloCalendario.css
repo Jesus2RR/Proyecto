@@ -92,6 +92,71 @@ form{
     color:black;
 }
 
+.adminCalendar{
+    display:flex;
+    justify-content:space-around;
+    width: 100%;
+}
+
+.centrarCalendar{
+    display: flex;
+    flex-direction: column;
+}
+
+.mostrarDia{
+    display: flex;
+    flex-direction: column;
+    padding:15px;
+    margin-top:25px;
+    width:700px;
+    height:95vh;
+    background-color: #302F2F;
+    text-align: center;
+    
+}
+.mostrarDia h1{
+    margin-bottom:0;
+}
+
+table{
+    height: 100%;
+    border-collapse: collapse;
+}
+
+.primerTd{
+    width: 200px;
+}
+
+td{
+    border:1px solid whitesmoke;
+    padding:0;
+}
+
+td form{
+    display: block;  
+    height:fit-content;
+}
+
+td input[type='submit']{
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cancelar input[type='submit']{
+    background-color: #C1292E;
+    width: 150px;
+    border-radius:5px;
+    font-size:20px;
+}
+
+.cancelar input[type='submit']:hover{
+    background-color: #891D20;
+}
+
+.cancelar input[type='submit']:active{
+    background-color:#6E171A;
+}
 
 /* Estilo menu Hamburguesa */
 
@@ -158,6 +223,7 @@ nav{
 
 .menuH{
     position: absolute;
+    top:16px;
     left:15px;
     z-index:2;
     float:left;

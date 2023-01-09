@@ -25,7 +25,7 @@ function crearDias(dias){
 
     //dia de la semana, lunes es 1, martes 2 y asi sucesivamente
     var hoy = date.getDay();
-
+    
     //variable contadora iniciada en 1
     var contador = 1;
 
@@ -36,9 +36,10 @@ function crearDias(dias){
     var fecha;
     var diaf = dia - hoy +1;
     
+    
     //se crean 7 parrafos 
     for(let i=1;i<8;i++){
-        console.log(hoy);
+        
         //se hace la igualdad en el bucle para iterar la variable
         fecha = String(diaf+'/'+mes+'/'+year);
         
@@ -50,49 +51,53 @@ function crearDias(dias){
         boton.setAttribute('type','submit');
         boton.setAttribute('name','submit');
         
-        if(hoy == 0){
+        if(hoy == 0 ){
             hoyChange = 1;
             boton.setAttribute('value',String(fecha+'-'+hoyChange));
             
         }else{
+            
             hoyChange = hoy+1;
+
+            if(hoy == i){
+                hoyChange = hoy;
+            }
+
             boton.setAttribute('value',String(fecha+'-'+hoyChange));
         }
+
+        
         
         //en caso de que el dia de la semana sea el dia de la semana se escribe
         if(hoy == i){
-            
+
             //en caso de que el dia si sea la iteracion se crea un nodo de texto con el dia actual del mes y se hace hijo del boton
             textini = document.createTextNode(dia);
-            console.log(textini)
-            boton.appendChild(textini);            
+            boton.appendChild(textini);
+                    
         }
         
         // en caso de que dia sea 0 se guarda 1 en el dia para mostrarlo en orden en el calendario
-        
-       
         //al boton creado en el espacio en blanco se oculta y deshabilita
+        
         if(i<hoy){
-            
             boton.setAttribute('disabled','');
             boton.setAttribute('style','opacity:0;');
+            
         }
-
-        console.log(hoy+" "+i);
-        
 
         //cuando la iteracion sea mayor al dia de la semana se crean nodos de texto con el dia del mes sumado a la variable contadora y se hace hijo del boton. La variables contadoras se iteran 
         if(i>hoy){
             text = document.createTextNode(dia+contador);
-            console.log(text);
             boton.appendChild(text);
             contador++;
-            restante++;            
-        }
+            restante++;
+            hoy++;  
+                    
+        }  
         
         //se incrementa el dia de la fecha
         diaf++;
-        
         
         //se añaden todos los parrafos creados como hijos del div
         parrafo.appendChild(boton)

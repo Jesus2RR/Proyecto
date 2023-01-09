@@ -1,0 +1,182 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: 'Raleway', sans-serif;
+    background-color: #1e1e1e;
+    color:#FDFFFC;
+}
+
+.reservar{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    padding:5px;
+    border-radius: 5px;
+    background-color: #302F2F;
+    width:calc(300px + 6vw);
+    padding:20px;
+    top:calc(50% - 200px);
+    left: calc(50% - 200px);
+    align-items:center;
+    z-index:15;
+}
+
+.reservar form input[type='submit']{
+    color:whitesmoke;
+    width: 200px;
+    font-size:calc(10px + 0.7vw);
+    margin-bottom:5px;
+    background-color: #C1292E;
+    border-radius:5px;
+    padding:5px;
+    border:0;
+    
+}
+
+.reservar form input[type='submit']:hover{
+    background-color: #891D20;
+}
+
+.reservar form input[type='submit']:active{
+    background-color:#6E171A;
+}
+
+.aceptar{
+    margin-top: 10px;
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.aceptar form input[type='submit']{
+    width:75px;
+}
+
+.anotacion{
+    font-size: 20px;
+}
+
+.anotacion form{
+    display: flex;
+    flex-direction: column;
+}
+
+.anotacion form label{
+    margin-top:10px;
+}
+
+.anotacion form input[type='submit']{
+    margin-top: 10px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo menu Hamburguesa */
+
+li{
+    list-style:none;
+}
+
+.respmenu a{
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color:#FDFFFC;
+}
+
+.respmenu a:hover{
+    font-weight: bold;
+}
+
+.cerrarSesion{
+    color:black;
+    background-color:#C1292E;
+}
+
+.cerrarSesion:hover{
+    background-color: #891D20;
+}
+
+.cerrarSesion:active{
+    background-color:#6E171A;
+}
+
+.check{
+    position: absolute;
+    left:17px;
+    top: 25px;
+    width: 50px;
+    height: 48px;
+    z-index: 3;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.respmenu{
+    position:absolute;
+    top:0;
+    width:175px;
+    left:-40vw;
+    height: 100vh;
+    background-color: #41403F;
+    transition:all;
+    transition-duration:0.5s;
+}
+
+nav{
+    top:100px;
+    position:absolute;
+    display: block;
+    width: 100%;
+}
+
+.check:checked  ~.respmenu{
+    transform: translate(40vw);   
+}
+
+.menuH{
+    position: absolute;
+    top:16px;
+    left:15px;
+    z-index:2;
+    float:left;
+}
+
+.hamburguesa{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom:10px;
+    width:45px;
+    height:5px;
+    border:1px solid #FDFFFC;
+    background-color: #FDFFFC;
+    border-radius: 15px;
+}
+
+/* HTML animacion menu hamburguesa */
+
+.bar1, .bar2, .bar3{
+    transition: all;
+    transition: 0.5s;
+}
+
+.check:checked  ~.superior .menuH .bar1{
+   transform-origin: left;
+   transform:rotateZ(46deg) translate(-0.5px) translateY(-0.5px);
+}
+
+.check:checked  ~.superior .menuH .bar2{
+    transform-origin: left;
+    transform:scale(0);
+} 
+
+.check:checked  ~.superior .menuH .bar3{
+    transform-origin: left;
+    transform:rotateZ(-46deg) translate(-1.5px) translateY(-0.5px);
+} 

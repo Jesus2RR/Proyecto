@@ -80,7 +80,7 @@
                 // en caso de que sea 1 se devuelve a las reservas
                 }else{
                     ?>
-                    <form action='./reservas.php' method='post'>
+                    <form action='./Calendario.php' method='post'>
                         <input type='submit' value='Continuar'>
                     </form>
                     <?php

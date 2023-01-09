@@ -19,7 +19,8 @@
 
     <?php
         // se hace require de los archivos necesarios
-        
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
         require_once("conexion.inc.php");
         require_once("Cliente.php");
         require_once("../../api/vendor/autoload.php");
@@ -75,97 +76,125 @@
         }else{
             // comprobación de variables
 
-            if(isset($_GET['txtCorreo'])){
-                $_GET['txtCorreo'];
+            if(!isset($_POST['txtCorreo'])){
+                $_POST['txtCorreo'] = $_SESSION['correo'];
             }
 
-            if(isset($_GET['horaHidden'])){
-                $_GET['horaHidden'];
-            }
-            
-            $tlfCliente = $conexion->query("SELECT telefono FROM Cliente WHERE correo ='$_GET[txtCorreo]'");
-            $tlf = $tlfCliente->fetch()[0];
+            $fallo = 0;
+            $existeCorreo = $conexion->query("SELECT correo FROM Cliente");
+            $o = 0;
 
-            // en caso de que no existan anotaciones se hará la insercion solo con el correo
-            if(!isset($_GET['comentario'])){
-                ?>
-                <div class='center'>
-                    <div class="mostrar">   
-                        <p>La cita <strong> <?php echo $_GET['horaHidden'];?> </strong></p>
-                        <p>Se asignó a <?php echo $_GET['txtCorreo'];?>.</p>
-                        
-                        <hr>
-                        
-                        <form action='./Horas.php' method='post'>
-                            <input type='submit' value='Continuar'>
-                        </form>
-                        
-                    </div>
-                </div>
-                <?php
-
-                Cliente::apiCall($tlf);
-
-                $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo) VALUES ('$_GET[horaHidden]','$_GET[txtCorreo]')");
-
-            }else{
+            while($existeCorreof = $existeCorreo->fetch()){
+                $correos[$o] = $existeCorreof[0];
                 
+                if ($correos[$o] == $_POST['txtCorreo']){
+                    $fallo = 1;
+                }
+                
+                $o++;
+            }
+
+            if($fallo == 0){
                 ?>
-                <div class='center'>
-                    <div class="mostrar">   
-                        <?php 
-                            // si se envia un correo y una anotacion se hace el insert con ambas
-                            if(isset($_GET['txtCorreo'])){
-                        ?>
-                            <p>La cita <strong> <?php echo $_GET['horaHidden'];?> </strong></p>
-                            <p>Se asignó a <?php echo $_GET['txtCorreo'];?>.</p>
-                            <p>Anotacion:<?php echo $_GET['comentario'];?></p>
-                            
-                            <?php
+                    <div class='center'>
+                        <div class="mostrar">   
+                            <p>Este correo no existe, intentelo de nuevo</p>
 
-                            // Cliente::apiCall($tlf);
-
-                                $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo,anotacion) VALUES ('$_GET[horaHidden]','$_GET[txtCorreo]','$_GET[comentario]')");
-                            
-                            ?>
                             <hr>
-                        <?php
-                            }else{
-                                // en caso de que no se envie ningun correo se hace la insercion con la anotacion y el correo del admin
-                                ?>
-                                    <p>La cita <strong> <?php echo $_GET['horaHidden'];?> </strong> ha sido reservada con exito.</p>
-                                    <p>Anotacion:<?php echo $_GET['comentario'];?></p>
-                                    
-                                    <hr>
-                                <?php
-
-                                $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo,anotacion) VALUES ('$_GET[horaHidden]','$correo','$_GET[comentario]')");
-                            }
-                        ?>
-                        
-                        <form action='./Horas.php' method='post'>
-                            <input type='submit' value='Continuar'>
-                        </form>
-                        
+                            
+                            <form action='./Calendario.php' method='post'>
+                                <input type='submit' value='Volver'>
+                            </form>
+                            
+                        </div>
                     </div>
-                </div>
                 <?php
+            }else{
 
-                
+                $tlfCliente = $conexion->query("SELECT telefono FROM Cliente WHERE correo ='$_POST[txtCorreo]'");
+                $tlf = $tlfCliente->fetch()[0];
+    
+                // en caso de que no existan anotaciones se hará la insercion solo con el correo
+                if(!isset($_POST['anotacion'])){
+                    ?>
+                    <div class='center'>
+                        <div class="mostrar">   
+                            <p>La cita <strong> <?php echo $_POST['horaHidden'];?> </strong></p>
+                            <p>Se asignó a <?php echo $_POST['txtCorreo'];?>.</p>
+                            
+                            <hr>
+                            
+                            <form action='./Calendario.php' method='post'>
+                                <input type='submit' value='Continuar'>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <?php
+    
+                    //Cliente::apiCall($tlf);
+    
+                    $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo) VALUES ('$_POST[horaHidden]','$_POST[txtCorreo]')");
+    
+                }else{
+                    
+                    ?>
+                    <div class='center'>
+                        <div class="mostrar">   
+                            <?php 
+                                // si se envia un correo y una anotacion se hace el insert con ambas
+                                if(isset($_POST['txtCorreo'])){
+                            ?>
+                                <p>La cita <strong> <?php echo $_POST['horaHidden'];?> </strong></p>
+                                <p>Se asignó a <?php echo $_POST['txtCorreo'];?>.</p>
+                                <p>Anotacion:<?php echo $_POST['anotacion'];?></p>
+                                
+                                <?php
+    
+                                // Cliente::apiCall($tlf);
+    
+                                    $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo,anotacion) VALUES ('$_POST[horaHidden]','$_POST[txtCorreo]','$_POST[anotacion]')");
+                                
+                                ?>
+                                <hr>
+    
+                            <?php
+    
+                                }else{
+                                    // en caso de que no se envie ningun correo se hace la insercion con la anotacion y el correo del admin
+                                    ?>
+                                        <p>La cita <strong> <?php echo $_POST['horaHidden'];?> </strong> ha sido reservada con exito.</p>
+                                        <p>Anotacion:<?php echo $_POST[anotacion];?></p>
+                                        
+                                        <hr>
+                                    <?php
+    
+                                if($_POST['aceptar'] == 1){
+                                    $insert = $conexion->exec("INSERT INTO Cita (fecha_hora, correo) VALUES ('$_POST[horaHidden]','$correo',)");
+                                }else{
+                                    $insert = $conexion->exec("INSERT INTO Cita (fecha_hora,correo,anotacion) VALUES ('$_POST[horaHidden]','$correo','$_POST[anotacion]')");
+                                }
+                                    
+                                }
+                            ?>
+                            
+                            <form action='./Calendario.php' method='post'>
+                                <input type='submit' value='Continuar'>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <?php
+    
+                    
+                }
+
             }
+
+            
 
         }
-        
-        
-        
-        ?>
-
-        
-
-        
-    
-    
-    
+    ?>
     
 </body>
 </html>

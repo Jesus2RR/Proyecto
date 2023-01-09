@@ -21,15 +21,24 @@
     <?php
         // require de los ficheros necesarios
         // se inicia la conexion
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
         require_once("conexion.inc.php");
         require_once("Cliente.php");
         $conexion = Conexion::openConexion();
+
+        echo $_POST['horaHidden'];
 
         session_start();
         $correo = $_SESSION['correo'];
         
         // insert con la hora enviada por formulario, correo logeado actual y un mensaje como anotación
-        $insert = $conexion->exec("INSERT INTO Cita (fecha_hora, correo, anotacion) VALUES ('$_POST[horaHidden]','$correo', 'HORA BLOQUEADA')");
+        if($_POST['aceptar'] == 1){
+            $insert = $conexion->exec("INSERT INTO Cita (fecha_hora, correo, anotacion) VALUES ('$_POST[horaHidden]','$correo', 'HORA BLOQUEADA')");
+        }else{
+            $insert = $conexion->exec("INSERT INTO Cita (fecha_hora, correo, anotacion) VALUES ('$_POST[horaHidden]','$correo', '$_POST[anotacion]')");
+        }
+        
     ?>
     <!-- formulario para enviar de vuelta a la página horas.php -->
     <div class='center'>
@@ -41,7 +50,7 @@
             <?php 
                 
                 ?>
-                <form action='./Horas.php' method='post'>
+                <form action='./Calendario.php' method='post'>
                     <input type='submit' value='Continuar'>
                 </form>
                 <?php

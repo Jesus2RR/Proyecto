@@ -152,27 +152,34 @@
         }
     }
 
-    
     function generarHorasAdmin($conexion,$fecha,$minDb,$ini,$fin){
-
         $key =0;
+
+        // la hora a la que empieza
         $hora = strtotime($ini);
+
+        // la ultima hora a mostrar
         $horaMaxima = strtotime($fin);
+
+        // los limites para no mostrar el descanso del peluquero
         $limiteHora1 = strtotime("13:00");
         $limiteHora2 = strtotime("17:00");
 
+        // las comprobaciones se hacen en tipo date
         while(date("H:i",$hora) < date("H:i",$horaMaxima)){
             
             if((!(date("H:i",$hora) >= date("H:i",$limiteHora1) && (date("H:i",$hora) < date("H:i",$limiteHora2))))){
-
+                
                 $existe = $conexion->query("SELECT fecha_hora FROM Cita");
                 $cont = 0;
                 
+                // se guarda en un array todas las fechas reservadas
                 while($resultado = $existe->fetch()){
                     $arrayExiste[$cont] = $resultado[0];
                     $cont++;
                 }
 
+                // si el array no existe se guarda en su primera posicion un caracter vacio
                 if(!isset($arrayExiste)){
                     $arrayExiste[0] = "";
                 }
@@ -180,40 +187,42 @@
                 $fechayHora = substr($fecha,0,-1).strval(date("H:i",$hora));
                 
                 //se muestran los divs
-
-                $tlfCliente = $conexion->query("SELECT telefono FROM Cliente WHERE correo='' ");
-
+                echo "<tr>";
+                // en caso de que la hora este reservada se añade una clase al div
                 if(in_array($fechayHora, $arrayExiste)){
-                    // en caso de que este reservada la hora aparecera un boton para cancelar la hora
-                    echo "<form class='formRojo' action='./borrarCita.php' method='post'>";
-                        echo "<div class='tarde horas rojo'>".date("H:i",$hora)."</div>";
-                        echo "<input class='opcion cancelar' name='horaSubmit' type='submit' value='Cancelar'>";
-                        echo "<input type='hidden' name='fechaBorrar' value='$fechayHora'>";
-                        echo "<input type='hidden' name='tlf' value='tlf'>";
-                        echo "<input type='hidden' name='pag' value='2'>";  
-                    echo "</form>";
-                }else{
                     
-                    // en caso de que la hora este libre es un boton que guarda la hora y la muestra
-                    echo "<div class='libre'>";
-                        echo "<form action='./modificarHora.php' method='post'>";
-
-                            echo "<input class='tarde horas horaAdmin' name='horaSubmit' type='submit' value='".strval(date("H:i",$hora))."'>";
-                            echo "<input type='hidden' name='horaHidden' value='$fechayHora'>"; 
-
+                    echo "<td class='primerTd'>".date("H:i",$hora)."</td>";
+                    echo "<td class='cancelar'>";
+                        echo "<form action='./borrarCita.php' method='post'>";
+                            echo "<input type='hidden' name='fechaBorrar' value='$fechayHora'>";
+                            echo "<input type='hidden' name='pag' value='1'>";
+                            echo "<input type='submit' value='Cancelar'>";
                         echo "</form>";
-                    echo "</div>";
-                    
+                    echo "</td>";
+                    // en caso de que no este reservada la hora se envia el correo del cliente y la fecha a borrar 
+                }else{
+                    echo "<td class='primerTd'>";
+                        
+                        echo strval(date("H:i",$hora));
+                            
+                    echo "</td>";
+
+                    echo "<td>";
+                        echo "<form action='./reservaPorUsuario.php' method='post'>";
+                            echo "<input type='hidden' name='horaHidden' value='$fechayHora'>";
+                            echo "<input type='submit' value=''>";
+                        echo "</form>";
+                    echo "</td>";
                 }
+
+                echo "</tr>";
             }
 
             $hora = $hora+60*$minDb;
             $key++;
-            
         }
-    }
 
-   
+    }
 ?>
 
 
